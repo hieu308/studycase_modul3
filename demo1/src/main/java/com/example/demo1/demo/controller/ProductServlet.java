@@ -22,6 +22,8 @@ public class ProductServlet extends HttpServlet {
     private static final String SELECT_LENOVO = "SELECT * FROM Products WHERE NAME LIKE 'LENOVO%'";
     private static final String SELECT_ACER = "SELECT * FROM Products WHERE NAME LIKE 'ACER%'";
     private static final String SELECT_GYGABYTE = "SELECT * FROM Products WHERE NAME LIKE 'GYGABYTE%'";
+    private static final String SELECT_BIG_SALE = "SELECT * FROM Products WHERE DESCRIPTION LIKE '%BS'";
+    private static final String SELECT_BEST_SELLER = "SELECT * FROM Products WHERE DESCRIPTION LIKE '%BSL'";
     private static final IProductService PRODUCT_SERVICE = new ProductService();
 
 
@@ -49,6 +51,12 @@ public class ProductServlet extends HttpServlet {
                 break;
             case "get-gygabyte":
                 productList(SELECT_GYGABYTE, req, resp);
+                break;
+            case "get-big-sale":
+                productList(SELECT_BIG_SALE, req, resp);
+                break;
+            case "get-best-seller":
+                productList(SELECT_BEST_SELLER, req, resp);
                 break;
             default:
                 productList(SELECT_ASUS, req, resp);

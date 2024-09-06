@@ -144,7 +144,9 @@ public class UserServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
         String message = "";
 
-
+        System.out.println(oldPassword);
+        System.out.println(newPassword);
+        System.out.println(confirmPassword);
         if (!oldPassword.equals(user.getPassword())) {
             message = "Mật khẩu hiện tại không chính xác.";
         }
@@ -182,17 +184,21 @@ public class UserServlet extends HttpServlet {
         user.setEmail(email);
         user.setPhone(phone);
         user.setAddress(address);
-
         boolean isSuccessful = userService.updateUser(user);
 
+        System.out.println(isSuccessful);
         if (isSuccessful) {
             request.setAttribute("successMessage", "Cập nhật thông tin thành công.");
-            session.setAttribute("user", user); //
+            session.setAttribute("user", user);
+            System.out.println("đã cn");
         } else {
             request.setAttribute("errorMessage", "Cập nhật thông tin không thành công.");
+            System.out.println("chưa cn");
+
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/user_info/user_infor.jsp");
         dispatcher.forward(request, response);
+
     }
 
     private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

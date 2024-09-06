@@ -103,8 +103,8 @@ public class UserRepository implements IUserRepository {
             preparedStatement.setString(3, user.getPhone());
             preparedStatement.setString(4, user.getAddress());
             preparedStatement.setString(5, user.getAccount());
-            int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0;
+            int result = preparedStatement.executeUpdate();
+            return result > 0;
         }
     }
 }
