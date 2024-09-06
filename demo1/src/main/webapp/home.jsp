@@ -223,6 +223,23 @@
                 </div>
 
             </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
         </div>
     </div>
@@ -321,7 +338,7 @@
                 <form action="users" method="post">
                     <input type="hidden" name="action" value="create">
                     <div class="form-group mt-2">
-                        <label for="nameAccount">Tên tài khoản</label>
+                        <label for="nameAccount">Tên tài khoản <span class="text-danger require">*</span></label>
                         <input type="text" class="form-control mt-1" id="nameAccount" name="account"
                                placeholder="Nhập tên tài khoản" required>
                         <div>
@@ -332,13 +349,13 @@
                         </div>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="passWord">Mật khẩu</label>
-                        <input type="password" class="form-control mt-1" id="passWord" name="password"
+                        <label for="passWord">Mật khẩu <span class="text-danger require">*</span></label>
+                        <input type="password" class="form-control mt-1" id="passWord" name="password1"
                                placeholder="Nhập mật khẩu" required>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="passWordAgain">Xác nhận mật khẩu</label>
-                        <input type="password" class="form-control mt-1" id="passWordAgain" name="passwordConfirm"
+                        <label for="passWordAgain">Xác nhận mật khẩu  <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control mt-1" id="passWordAgain" name="password2"
                                placeholder="Nhập lại mật khẩu" required>
                         <span id="passError"
                               data-error="<%= request.getAttribute("passError") != null ? request.getAttribute("passError") : "" %>"
@@ -346,7 +363,7 @@
                             </span>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="email">Email</label>
+                        <label for="email">Email  <span class="text-danger require">*</span></label>
                         <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Nhập email"
                                required>
                         <span id="emailError"
@@ -355,7 +372,7 @@
                             </span>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="name">Họ và tên</label>
+                        <label for="name">Họ và tên  <span class="text-danger require">*</span></label>
                         <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Nhập họ và tên"
                                required>
                     </div>

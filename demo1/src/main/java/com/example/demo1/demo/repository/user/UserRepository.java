@@ -16,6 +16,7 @@ public class UserRepository implements IUserRepository {
     private static final String SELECT_USER = "SELECT * FROM users WHERE account = ? AND password = ?";
     private static final String SELECT_USER_SQL = "SELECT * FROM users ";
     private static final String UPDATE_USER_SQL = "UPDATE users SET name = ?, email = ?, phone_number = ?, address = ? WHERE account = ?";
+    private static final String CHANGE_PASSWORD_SQL = "UPDATE users SET password = ? WHERE account = ?";
     BaseRepository baseRepository = new BaseRepository();
 
     @Override
@@ -81,6 +82,16 @@ public class UserRepository implements IUserRepository {
     }
 
 
+    @Override
+    public boolean changePassword(String pass,User user) throws SQLException {
+        try(Connection connection = baseRepository.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_PASSWORD_SQL)) {
+            preparedStatement.setString(2, user.getAccount());
+            preparedStatement.setString(1, pass);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 
     @Override
     public boolean updateUser(User user) throws SQLException {

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -13,6 +14,11 @@
     <title>Title</title>
     <link rel="stylesheet" href="../bootstrap-5.2.3-dist/css/bootstrap.css">
     <link rel="stylesheet" href="../css/user.css">
+    <style>
+        .alert-hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -34,13 +40,18 @@
 
     <div class="container mt-5">
         <h2 class="mb-4">Thông tin tài khoản</h2>
+        <c:if test="${not empty requestScope.successMessage}">
+            <div class="alert alert-success mt-3">
+                    ${requestScope.successMessage}
+            </div>
+        </c:if>
 
         <form action="users?action=update" method="post">
             <input type="hidden" name="account" value="update">
 
             <div class="mb-3">
                 <label for="userAccount" class="form-label">Tên tài khoản </label>
-                <input type="text" class="form-control" id="userAccount" name="account" value="${sessionScope.user.account}">
+                <input type="text" class="form-control" id="userAccount" name="account1" value="${sessionScope.user.account} " readonly>
             </div>
             <div class="mb-3">
                 <label for="userName" class="form-label">Tên người dùng</label>
@@ -49,7 +60,7 @@
 
             <div class="mb-3">
                 <label for="userEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="userEmail" name="email" value="${sessionScope.user.email}">
+                <input type="email" class="form-control" id="userEmail" name="email" value="${sessionScope.user.email}" readonly>
             </div>
 
             <div class="mb-3">

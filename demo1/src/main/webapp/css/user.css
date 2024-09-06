@@ -181,7 +181,7 @@ h2 {
     background-color: #218838;
 }
 
-/* Định dạng responsive */
+
 @media (max-width: 768px) {
     .cart-table td, .cart-table th {
         font-size: 14px;
