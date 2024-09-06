@@ -1,12 +1,10 @@
 <%@ page import="java.util.HashSet" %>
-<%@ page import="java.text.NumberFormat" %>
+<%@ page import="com.example.demo1.demo.model.Product" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="true" %>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,11 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="bootstrap-5.2.3-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/styleProduct.css" >
+    <link rel="stylesheet" href="./bootstrap-5.2.3-dist/css/bootstrap.css" >
 </head>
 <body>
-
 
 <section class="myheader">
     <div class="container header_one">
@@ -103,8 +100,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link custom-text-white active" aria-current="page" onclick="forcus()"
-                       href="/products?action=get-msi">
+                    <a class="nav-link custom-text-white active" aria-current="page" href="/products?action=get-msi">
                         <img class="img_msi" src="image/msi.png" alt="">
                     </a>
 
@@ -147,7 +143,7 @@
 
 <section class="main_content my-3">
     <div class="container">
-        <div class="slider ">
+        <div class="slider">
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -160,99 +156,75 @@
                         <img src="image/slider4.png" class="d-block w-100" alt="...">
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
         </div>
+        <div class = "row1">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 order-mb-1 gallery-product-template pd-right-0">
+                    <div class="d-flex-wrap d-flex sticky-gallery">
+                        <div class="product-gallery d-flex-slick slick-initialized slick-slider">
+                            <img src="image/products/msi_gf63.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 order-mb-1 product-content">
+                    <div class="pro-content-head clearfix">
+                        <div class="head-product-title" style="">
+                            <h1 data-available="Còn hàng" class="green">
+                                <c:out value="${product.getDescription()}" />
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="product-info mt-4">
+                        <div class="views-rating">
+                            <span>5682 lượt xem | </span>
+                            <span class="stars">
+                    <i class="fa fa-star text-warning"></i>
+                    <i class="fa fa-star text-warning"></i>
+                    <i class="fa fa-star text-warning"></i>
+                    <i class="fa fa-star text-warning"></i>
+                    <i class="fa fa-star text-warning"></i>
+                    <span>(11)</span>
+                </span>
+                        </div>
+                        <div class="product-brand">
+                            <strong>Thương hiệu: </strong><span style="color: red"><c:out value="${product.getBrand()}" /></span>
+                        </div>
+                        <div class="product-type">
+                            <strong>Loại: </strong><span style="color: red">Laptop</span>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-price">
+                            <strong>Giá: </strong><span class="text" style="color: red"><fmt:formatNumber type="number" value="${product.price}"/> VND</span>
+                        </div>
+                        <div class="product-quantity">
+                            <strong>Số lượng: </strong>
+                            <input type="number" min="1" value="1" class="quantity-input">
+                        </div>
+                        <div class="action-buttons mt-3 d-flex justify-content-between">
+                            <button class="btn btn-danger add-to-cart">Thêm vào giỏ hàng</button>
+                            <button class="btn btn-primary buy-now">Mua Ngay</button>
+                        </div>
+                    </div>
+                    <div class="office">
+                        <img src="image/products/tang_ban_quyen_office_2019.jpg" alt="">
+                    </div>
 
-        <nav class="navbar navbar-expand-lg bg-light ads ">
-            <div class="container-fluid">
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item bl">
-                            <a class="nav-link" href="products?action=get-big-sale">
-                                <img class="best_sell" src="image/bestseller.png" alt="">
-                            </a>
-                        </li>
-                        <li class="nav-item bs">
-                            <a class="nav-link" href="products?action=get-best-seller">
-                                <img class="big_sale" src="image/bigsell2.png" alt="">
-                            </a>
-                        </li>
-                        <li class="nav-item video ">
-                            <video src="image/SPHV-%20Quảng%20cáo%20LAPTOP%20GAMING%20ASUS.mp4" autoplay loop
-                                   muted></video>
-                        </li>
-
-                    </ul>
                 </div>
             </div>
-        </nav>
-
-        <div class="product-list my-3" id="scroll-target">
-            <div class="product_title border-bottom">
-                <c:forEach items="${products}" var="product" varStatus="s">
-                    <c:if test="${s.count==1}"> <strong class="name_product "> ${product.brand}</strong></c:if>
-                </c:forEach>
-            </div>
-
-            <div class="product-list-a bg-white">
-
-                <div class="row">
-                    <c:forEach items="${products}" var="product">
-
-                        <form action="/order?action=add-to-cart" method="post" class="mb-3 col-md-6 col-lg-3 p-5">
-                            <a href="/products?action=view-product&name=${product.name}"> <img src="image/products-small/${product.image}" alt="asus"
-                                                            class="img-fluid asus_product img_sell">
-                                <h3>${product.name}</h3>
-                                <h4>${product.description}</h4>
-
-                                <h1 class="price"><fmt:formatNumber value="${product.price}"/> VND</h1>
-
-                            </a>
-                        </form>
-
-                    </c:forEach>
-                </div>
-                <div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-
-            </div>
-
-
         </div>
     </div>
 </section>
+
 <section class="myfooter bg-dark custom-text-white py-4">
     <div class="container">
         <div class="row">
@@ -290,7 +262,6 @@
     </div>
 
 </section>
-
 <div style="color: #2c3034" class="modal fade" id="signup" tabindex="-1" role="dialog"
      aria-labelledby="addProductModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -304,7 +275,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="/users" method="post">
+                <form action="users" method="post">
                     <input type="hidden" name="action" value="login">
                     <div class="mb-3">
                         <label for="exampleInputAccount" class="form-label">Tên tài khoản</label>
@@ -347,41 +318,27 @@
                 <form action="users" method="post">
                     <input type="hidden" name="action" value="create">
                     <div class="form-group mt-2">
-                        <label for="nameAccount">Tên tài khoản <span class="text-danger require">*</span></label>
-                        <input type="text" class="form-control mt-1" id="nameAccount" name="account"
+                        <label for="nameAcout">Tên tài khoản</label>
+                        <input type="text" class="form-control mt-1" id="nameAcout" name="account"
                                placeholder="Nhập tên tài khoản" required>
-                        <div>
-                            <span id="accountError"
-                                  data-error="<%= request.getAttribute("accountError") != null ? request.getAttribute("accountError") : "" %>"
-                                  style="display: none; color: red;margin-top: 10px">
-                            </span>
-                        </div>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="passWord">Mật khẩu <span class="text-danger require">*</span></label>
-                        <input type="password" class="form-control mt-1" id="passWord" name="password1"
+                        <label for="passWord">Mật khẩu</label>
+                        <input type="password" class="form-control mt-1" id="passWord" name="password"
                                placeholder="Nhập mật khẩu" required>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="passWordAgain">Xác nhận mật khẩu <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control mt-1" id="passWordAgain" name="password2"
+                        <label for="passWordaAgain">Xác nhận mật khẩu</label>
+                        <input type="password" class="form-control mt-1" id="passWordaAgain"
                                placeholder="Nhập lại mật khẩu" required>
-                        <span id="passError"
-                              data-error="<%= request.getAttribute("passError") != null ? request.getAttribute("passError") : "" %>"
-                              style="display: none; color: red;margin-top: 10px">
-                            </span>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="email">Email <span class="text-danger require">*</span></label>
+                        <label for="email">Email</label>
                         <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Nhập email"
                                required>
-                        <span id="emailError"
-                              data-error="<%= request.getAttribute("emailError") != null ? request.getAttribute("emailError") : "" %>"
-                              style="display: none; color: red;margin-top: 10px">
-                            </span>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="name">Họ và tên <span class="text-danger require">*</span></label>
+                        <label for="name">Họ và tên</label>
                         <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Nhập họ và tên"
                                required>
                     </div>
@@ -406,8 +363,11 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="bootstrap-5.2.3-dist/js/bootstrap.js"></script>
+<script src="./bootstrap-5.2.3-dist/js/bootstrap.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+</script>
 
 </body>
 </html>
