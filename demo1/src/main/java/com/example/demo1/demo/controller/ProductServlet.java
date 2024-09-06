@@ -21,7 +21,7 @@ public class ProductServlet extends HttpServlet {
     private static final String SELECT_HP = "SELECT * FROM Products WHERE NAME LIKE 'HP%'";
     private static final String SELECT_LENOVO = "SELECT * FROM Products WHERE NAME LIKE 'LENOVO%'";
     private static final String SELECT_ACER = "SELECT * FROM Products WHERE NAME LIKE 'ACER%'";
-    private static final String SELECT_GYGABYTE = "SELECT * FROM Products WHERE NAME LIKE 'GYGABYTE%'";
+    private static final String SELECT_GYGABYTE = "SELECT * FROM Products WHERE NAME LIKE 'GIGABYTE%'";
     private static final IProductService PRODUCT_SERVICE = new ProductService();
 
 
@@ -47,21 +47,30 @@ public class ProductServlet extends HttpServlet {
             case "get-acer":
                 productList(SELECT_ACER, req, resp);
                 break;
-            case "get-gygabyte":
+            case "get-gigabyte":
                 productList(SELECT_GYGABYTE, req, resp);
+                break;
+            case "view-product":
+                viewProduct(req, resp);
                 break;
             default:
                 productList(SELECT_ASUS, req, resp);
         }
     }
+    private void viewProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
+        Product product = PRODUCT_SERVICE.getProductByName(name);
+        req.setAttribute("product", product);
+        req.getRequestDispatcher("/product-detail.jsp").forward(req, resp);
+    }
 
     private void productList(String sql, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         List<Product> products = PRODUCT_SERVICE.findAll(sql);
         req.setAttribute("products", products);
         System.out.println("ok");
         req.getRequestDispatcher("/home.jsp").forward(req, resp);
     }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
