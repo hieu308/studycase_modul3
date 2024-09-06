@@ -21,7 +21,7 @@ public class User {
         this.role = role;
     }
 
-    public User( String account, String email, String name, String phone, String address) {
+    public User(String account, String email, String name, String phone, String address) {
 
         this.account = account;
         this.email = email;
@@ -52,6 +52,7 @@ public class User {
     public String getAccount() {
         return account;
     }
+
     public String getName() {
         return name;
     }
@@ -59,6 +60,7 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
     public void setAccount(String account) {
         this.account = account;
     }

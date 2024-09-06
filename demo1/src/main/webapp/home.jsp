@@ -1,9 +1,12 @@
 <%@ page import="java.util.HashSet" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="true" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>\
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +103,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link custom-text-white active" aria-current="page" onclick="forcus()" href="/products?action=get-msi">
+                    <a class="nav-link custom-text-white active" aria-current="page" onclick="forcus()"
+                       href="/products?action=get-msi">
                         <img class="img_msi" src="image/msi.png" alt="">
                     </a>
 
@@ -179,12 +183,12 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item bl">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="products?action=get-big-sale">
                                 <img class="best_sell" src="image/bestseller.png" alt="">
                             </a>
                         </li>
                         <li class="nav-item bs">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="products?action=get-best-seller">
                                 <img class="big_sale" src="image/bigsell2.png" alt="">
                             </a>
                         </li>
@@ -205,7 +209,7 @@
                 </c:forEach>
             </div>
 
-            <div class="product-list-a bg-white" >
+            <div class="product-list-a bg-white">
 
                 <div class="row">
                     <c:forEach items="${products}" var="product">
@@ -215,32 +219,36 @@
                                                             class="img-fluid asus_product img_sell">
                                 <h3>${product.name}</h3>
                                 <h4>${product.description}</h4>
-                                <h1 class="price"><fmt:formatNumber type="number" value="${product.price}"/>VND</h1>
+
+                                <h1 class="price"><fmt:formatNumber value="${product.price}"/> VND</h1>
+
                             </a>
-                            <button type="submit" class="btn btn-primary">Add to cart</button>
                         </form>
 
                     </c:forEach>
                 </div>
+                <div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 
             </div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+
 
         </div>
     </div>
@@ -355,7 +363,7 @@
                                placeholder="Nhập mật khẩu" required>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="passWordAgain">Xác nhận mật khẩu  <span class="text-danger">*</span></label>
+                        <label for="passWordAgain">Xác nhận mật khẩu <span class="text-danger">*</span></label>
                         <input type="password" class="form-control mt-1" id="passWordAgain" name="password2"
                                placeholder="Nhập lại mật khẩu" required>
                         <span id="passError"
@@ -364,7 +372,7 @@
                             </span>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="email">Email  <span class="text-danger require">*</span></label>
+                        <label for="email">Email <span class="text-danger require">*</span></label>
                         <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Nhập email"
                                required>
                         <span id="emailError"
@@ -373,7 +381,7 @@
                             </span>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="name">Họ và tên  <span class="text-danger require">*</span></label>
+                        <label for="name">Họ và tên <span class="text-danger require">*</span></label>
                         <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Nhập họ và tên"
                                required>
                     </div>
