@@ -39,4 +39,9 @@ public class UserService implements IUserService {
     public List<User> getAllUsers() throws SQLException {
         return userRepository.getAllUsers();
     }
+
+    @Override
+    public boolean changePassword(String pass,User user) throws SQLException {
+        return userRepository.changePassword(pass,user);
+    }
 }

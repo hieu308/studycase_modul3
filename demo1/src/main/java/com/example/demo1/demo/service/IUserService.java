@@ -13,5 +13,6 @@ public interface IUserService {
     public boolean updateUser(User user) throws SQLException;
     User authenticateUser(String account, String password) throws SQLException;
     List<User> getAllUsers() throws SQLException;
+    boolean changePassword(String pass,User user) throws SQLException;
 
 }

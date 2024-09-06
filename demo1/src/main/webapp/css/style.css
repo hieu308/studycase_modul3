@@ -85,13 +85,6 @@ a {
     margin-top: -1px;
 }
 
-/*!*.user,*!*/
-/*.call {*/
-/*    margin-top: 15px;*/
-/*    margin-left: 20px;*/
-/*}*/
-
-
 input {
     border: 1px solid #ccc;
 }
@@ -156,11 +149,13 @@ input:focus {
 }
 
 .myMenu {
-    background-color: #86b7fe;
+    background-color: #86b7fe !important;
+
 }
 
 .head_menu {
     margin-left: 220px;
+
 }
 
 .img_sell:hover {

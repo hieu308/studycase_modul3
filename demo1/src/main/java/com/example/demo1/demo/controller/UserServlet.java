@@ -37,8 +37,9 @@ public class UserServlet extends HttpServlet {
                 case "update":
                     updateUser(request, response);
                     break;
-                    case "changePass":
-
+                case "changePass":
+                    changePassForm(request, response);
+                    break;
                 default:
                     response.sendRedirect("/home");
                     break;
@@ -69,15 +70,15 @@ public class UserServlet extends HttpServlet {
                 break;
 
             default:
-                response.sendRedirect("/home.jsp");
+                response.sendRedirect("/products");
                 break;
         }
     }
 
     private void insertUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         String account = request.getParameter("account");
-        String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String password = request.getParameter("password1");
+        String confirmPassword = request.getParameter("password2");
         String email = request.getParameter("email");
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
@@ -123,7 +124,7 @@ public class UserServlet extends HttpServlet {
             if ("admin".equals(role)) {
                 response.sendRedirect("/admin_home.jsp");
             } else if ("customer".equals(role)) {
-                response.sendRedirect("/home.jsp");
+                response.sendRedirect("/products");
             } else {
                 response.sendRedirect("/user.jsp");
             }
@@ -133,24 +134,65 @@ public class UserServlet extends HttpServlet {
         }
     }
 
+    private void changePassForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        System.out.println(user.getPassword());
+        String oldPassword = request.getParameter("oldPassword");
+        String newPassword = request.getParameter("newPassword");
+        String confirmPassword = request.getParameter("confirmPassword");
+        String message = "";
+
+
+        if (!oldPassword.equals(user.getPassword())) {
+            message = "Mật khẩu hiện tại không chính xác.";
+        }
+        else if (!newPassword.equals(confirmPassword)) {
+            message = "Mật khẩu mới và xác nhận mật khẩu không khớp.";
+        }
+        else {
+            boolean success = userService.changePassword(newPassword, user);
+            if (success) {
+                message = "Mật khẩu đã được cập nhật thành công.";
+                user.setPassword(newPassword);
+                session.setAttribute("user", user);
+            } else {
+                message = "Đã xảy ra lỗi khi cập nhật mật khẩu. Vui lòng thử lại.";
+            }
+        }
+
+        request.setAttribute("message", message);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user_info/change-password.jsp");
+        dispatcher.forward(request, response);
+
+    }
+
     private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 
-        String account = request.getParameter("account");
+        String account = request.getParameter("account1");
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
-        User user = new User(account, email, name, phone, address);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        user.setAccount(account);
+        user.setName(name);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setAddress(address);
+
         boolean isSuccessful = userService.updateUser(user);
+
         if (isSuccessful) {
-            request.setAttribute("successMessage", "Cập nhật thông tin thành công");
+            request.setAttribute("successMessage", "Cập nhật thông tin thành công.");
+            session.setAttribute("user", user); //
         } else {
-            request.setAttribute("errorMessage", "Cập nhật thông tin không thanh cong.");
-
+            request.setAttribute("errorMessage", "Cập nhật thông tin không thành công.");
         }
-        request.getRequestDispatcher("/home.jsp").forward(request, response);
-
-
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user_info/user_infor.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -158,9 +200,12 @@ public class UserServlet extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect("/home.jsp");
+        response.sendRedirect("/products");
     }
-private void changePassWord(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {}
+
+    private void changePassWord(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+    }
+
     private void showUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("user_info/user_infor.jsp");
         dispatcher.forward(request, response);
